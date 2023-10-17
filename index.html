@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <!-- Тут вставка -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="icon.png" type="image/x-icon" />
+    <title>Сайт портфолио</title>
+  </head>
+  <body style="background-image: url(bg.jpeg)" link="red" vlink="#cecece" alink="#ff0000">
+    <ul style="color: azure">
+      <div class="container">
+        <div class="header">
+          <h1 class="header__logo">визитка</h1>
+        </div>
+        <hr/ style="color: white;">
+        <br />
+        <table class="mytable">
+          <tr>
+            <td width="1000px">
+              <img
+                src="cringe_photo.JPG"
+                width="210"
+                alt="MyPhoto"
+                style="border-radius: 150px"
+              />
+            </td>
+            <td width="20000px">
+              <div class="info" id="info">
+                <link rel="info" href="style.css" />
+                <h2 style="font-family: monospace">О себе</h2>
+                <p style="font-family: monospace">
+                  Костылев Артём Сергеевич БПИ-2303
+                </p>
+                <a
+                  href="https://t.me/the_usrname"
+                  target="_blank"
+                  class="info__nickname"
+                  style="font-family: monospace"
+                >
+                  Telegram
+                </a>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <br />
+        <hr/ style="color: rgb(67, 67, 67);">
+        <div class="header__menu menu">
+          <button class="menu__btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-list"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 
+1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 
+.5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+              />
+            </svg>
+          </button>
+          <ul class="menu__list hide">
+            <li class="menu__item">
+              <a href="#info" class="menu__link"> О себе </a>
+            </li>
+            <li class="menu__item">
+              <a href="#portfolio" class="menu__link"> Портфолио </a>
+            </li>
+          </ul>
+        </div>
+        <!-- <br /> -->
+        <table class="mytable" with="500">
+          <tr>
+            <td valign='top' width="600px">
+              <div style="text-align: left va; font-family: monospace;">
+                <h2 style="font-size: 30px; text-align: center;"">Список проектов</h2>
+                <div style="font-size: 30; font-family: monospace; text-align: center">
+                  <ul id="project-list" style="font-size: 20px; font-family: monospace"></ul>
+                </div>
+              </div>
+            </td>
+            <td width="600px">
+              <h2 style="font-size: 30px; font-family: monospace; text-align: center;">Круговая диаграмма языков программирования</h2>
+              <canvas id="language-chart"></canvas>
+            </td>
+          </tr>
+        </table>
+        <br />
+        <div class="portfolio" id="portfolio">
+          <button class="portfolio__btn">
+
+            <a>Открыть портфолио</a>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-chevron-down"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-
+  5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <script>
+        // Получение данных с GitHub API
+        fetch("https://api.github.com/users/the-usrname/repos")
+          .then((response) => response.json())
+          .then((data) => {
+            // Обработка данных для круговой диаграммы языков программирования
+            var languageData = {};
+            data.forEach((repo) => {
+              var language = repo.language;
+              if (language) {
+                if (languageData[language]) {
+                  languageData[language]++;
+                } else {
+                  languageData[language] = 1;
+                }
+              }
+            });
+            var languageLabels = Object.keys(languageData);
+            var languageValues = Object.values(languageData);
+            var languageColors = ["#F7DF1E", "#3572A5", "#ED8B00", "#00599C"]; // Можешь изменить цвета по своему вкусу
+
+            // Создание круговой диаграммы
+            var languageChart = new Chart(
+              document.getElementById("language-chart"),
+              {
+                type: "doughnut",
+                data: {
+                  labels: languageLabels,
+                  datasets: [
+                    {
+                      data: languageValues,
+                      backgroundColor: languageColors,
+                    },
+                  ],
+                },
+              }
+            );
+
+            // Обработка данных для столбцовой диаграммы количества коммитов по проектам
+            var commitsData = {
+              labels: data.map((repo) => repo.name),
+              datasets: [
+                {
+                  label: "Количество коммитов",
+                  data: data.map((repo) => repo.commits),
+                  backgroundColor: "#FF6384", // Можешь изменить цвет по своему вкусу
+                },
+              ],
+            };
+
+            // Создание списка проектов со ссылками
+            var projectList = document.getElementById("project-list");
+            data.forEach((repo) => {
+              var listItem = document.createElement("li");
+              var link = document.createElement("a");
+              link.href = repo.html_url;
+              link.textContent = repo.name;
+              listItem.appendChild(link);
+              projectList.appendChild(listItem);
+            });
+          })
+          .catch((error) => {
+            console.error(
+              "Произошла ошибка при получении данных с GitHub API:",
+              error
+            );
+          });
+      </script>
+
+      <script src="main.js"></script>
+    </ul>
+  </body>
+</html>
