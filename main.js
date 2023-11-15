@@ -9,7 +9,7 @@ function toggleMenuVisibility() {
 menuBtn.addEventListener("click", toggleMenuVisibility);
 
 function go_portfolio(){
-    window.location.href="https://github.com/the-usrname"
+    window.location.href="https://github.com/loyal-pelmen"
 }
 
 portfolio_btn.addEventListener("click", go_portfolio)

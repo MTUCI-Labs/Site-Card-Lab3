@@ -3,14 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <!-- Тут вставка -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="icon.png" type="image/x-icon" />
     <title>Сайт портфолио</title>
   </head>
-  <body style="background-image: url(bg.jpeg)" link="red" vlink="#cecece" alink="#ff0000">
-    <ul style="color: azure">
+  <body style="background-image: url(bg.jpeg)" link="white" vlink="white" alink="white">
+    <ul style="color: white">
       <div class="container">
         <div class="header">
           <h1 class="header__logo">визитка</h1>
@@ -35,7 +34,7 @@
                   Костылев Артём Сергеевич БПИ-2303
                 </p>
                 <a
-                  href="https://t.me/the_usrname"
+                  href="https://t.me/loyal-pelmen"
                   target="_blank"
                   class="info__nickname"
                   style="font-family: monospace"
@@ -75,7 +74,6 @@
             </li>
           </ul>
         </div>
-        <!-- <br /> -->
         <table class="mytable" with="500">
           <tr>
             <td valign='top' width="600px">
@@ -117,7 +115,7 @@
 
       <script>
         // Получение данных с GitHub API
-        fetch("https://api.github.com/users/the-usrname/repos")
+        fetch("https://api.github.com/users/loyal-pelmen/repos")
           .then((response) => response.json())
           .then((data) => {
             // Обработка данных для круговой диаграммы языков программирования
@@ -134,7 +132,7 @@
             });
             var languageLabels = Object.keys(languageData);
             var languageValues = Object.values(languageData);
-            var languageColors = ["#F7DF1E", "#3572A5", "#ED8B00", "#00599C"]; // Можешь изменить цвета по своему вкусу
+            var languageColors = ["#F7DF1E", "#3572A5", "#ED8B00", "#00599C"];
 
             // Создание круговой диаграммы
             var languageChart = new Chart(
